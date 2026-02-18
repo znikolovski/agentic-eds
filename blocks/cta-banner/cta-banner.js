@@ -1,11 +1,3 @@
-function applyFocalPoint(img) {
-  const { title } = img.dataset;
-  if (!title?.includes('data-focal')) return;
-  delete img.dataset.title;
-  const [x, y] = title.split(':')[1].split(',');
-  img.style.objectPosition = `${x}% ${y}%`;
-}
-
 export default async function decorate(block) {
   const rows = [...block.querySelectorAll(':scope > div')];
 
@@ -16,7 +8,17 @@ export default async function decorate(block) {
     if (pic) {
       bgRow.classList.add('cta-banner-bg');
       const img = pic.querySelector('img');
-      if (img) applyFocalPoint(img);
+
+      // Next row may hold image crop/position (e.g. "50, 25")
+      if (img && rows.length) {
+        const nextCell = rows[0]?.querySelector(':scope > div');
+        const text = nextCell?.textContent.trim();
+        if (text && /^\d+\s*,\s*\d+$/.test(text)) {
+          const [x, y] = text.split(',').map((v) => v.trim());
+          img.style.objectPosition = `${x}% ${y}%`;
+          rows.shift().remove();
+        }
+      }
     } else {
       bgRow.remove();
     }
