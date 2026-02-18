@@ -115,6 +115,13 @@
     }
   }
 
+  &.center {
+    .hero-foreground {
+      justify-content: center;
+      text-align: center;
+    }
+  }
+
   &.stack {
     .hero-background {
       > div {
@@ -143,13 +150,6 @@
       img {
         object-position: 20% 50%;
       }
-    }
-  }
-
-  &.center {
-    .hero-foreground {
-      justify-content: center;
-      text-align: center;
     }
   }
 }
@@ -208,11 +208,116 @@
   }
 }
 
+/* stylelint-disable no-descending-specificity -- card is an independent variant */
+
+/* Card variant */
+.hero.card {
+  --hero-card-radius: 12px;
+  --hero-card-pill: 999px;
+
+  color: var(--color-text);
+  background: var(--color-shaded);
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+
+  .hero-background {
+    picture {
+      position: absolute;
+      inset: 0;
+    }
+
+    img {
+      display: block;
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+    }
+
+    video {
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .hero-foreground {
+    background: none;
+    min-height: unset;
+    padding: var(--spacing-xxl) var(--spacing-l);
+    display: block;
+    position: relative;
+
+    .fg-text {
+      background: var(--color-background);
+      border-radius: var(--hero-card-radius);
+      padding: var(--spacing-xl);
+      max-width: 600px;
+    }
+  }
+
+  .hero-heading {
+    font-size: 36px;
+    line-height: 1.2;
+    font-weight: 700;
+  }
+
+  .hero-foreground p:not(.btn-group) {
+    color: var(--color-gray-700);
+    font-size: var(--body-font-size-l);
+    line-height: 1.4;
+  }
+
+  .btn-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-m);
+    margin-top: var(--spacing-xl);
+  }
+
+  .btn {
+    border-radius: var(--hero-card-pill);
+    padding: 12px 24px;
+    font-weight: 600;
+    font-size: var(--body-font-size-m);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 140px;
+    box-sizing: border-box;
+  }
+}
+
+@media (width >= 600px) {
+  .hero.card {
+    min-height: 500px;
+    padding: var(--spacing-xxl) 0;
+
+    .hero-foreground {
+      display: block;
+      width: 100%;
+      max-width: var(--grid-container-width);
+      margin: 0 auto;
+      padding: 0;
+    }
+
+    .hero-heading {
+      font-size: 48px;
+      line-height: 1.2;
+    }
+  }
+}
+
 @media (width >= 900px) {
   .hero {
     .hero-foreground {
       grid-template-columns: 40% 40%;
     }
+  }
+
+  .hero.card {
+    min-height: 600px;
   }
 }
 

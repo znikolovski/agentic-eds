@@ -32,8 +32,7 @@ function decorateBackground(bg) {
 }
 
 function decorateForeground(fg) {
-  const { children } = fg;
-  for (const [idx, child] of [...children].entries()) {
+  [...fg.children].forEach((child, idx) => {
     const heading = child.querySelector('h1, h2, h3, h4, h5, h6');
     const text = heading || child.querySelector('p, a, ul');
     if (heading) {
@@ -52,10 +51,66 @@ function decorateForeground(fg) {
         child.closest('.hero').classList.add('hero-text-end');
       }
     }
+  });
+}
+
+function decorateCard(el) {
+  const rows = [...el.querySelectorAll(':scope > div')];
+
+  // Detect background row (first row containing a picture or video link)
+  const firstCell = rows[0]?.querySelector(':scope > div');
+  const hasBg = firstCell?.querySelector('picture') || firstCell?.querySelector('a[href*=".mp4"]');
+  if (hasBg) {
+    const bgRow = rows.shift();
+    bgRow.classList.add('hero-background');
+    decorateBackground(bgRow);
   }
+
+  // Build foreground card from remaining rows
+  const fg = document.createElement('div');
+  fg.classList.add('hero-foreground');
+  const col = document.createElement('div');
+  col.classList.add('fg-text');
+
+  rows.forEach((row, idx) => {
+    const cell = row.querySelector(':scope > div');
+    if (!cell) return;
+    let heading = cell.querySelector('h1, h2, h3, h4, h5, h6');
+    const btn = cell.querySelector('.btn');
+
+    if (!heading && idx === 0) {
+      const strong = cell.querySelector('strong');
+      if (strong && !btn) {
+        heading = document.createElement('h2');
+        heading.textContent = strong.textContent;
+      }
+    }
+
+    if (heading) {
+      heading.classList.add('hero-heading');
+      col.append(heading);
+    } else if (btn) {
+      const group = document.createElement('p');
+      group.classList.add('btn-group');
+      group.append(...cell.childNodes);
+      col.append(group);
+    } else {
+      const p = document.createElement('p');
+      p.append(...cell.childNodes);
+      col.append(p);
+    }
+    row.remove();
+  });
+
+  fg.append(col);
+  el.append(fg);
 }
 
 export default async function init(el) {
+  if (el.classList.contains('card')) {
+    decorateCard(el);
+    return;
+  }
   const rows = [...el.querySelectorAll(':scope > div')];
   const fg = rows.pop();
   fg.classList.add('hero-foreground');
