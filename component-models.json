@@ -1,0 +1,227 @@
+[
+  {
+    "id": "page-metadata",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "value": "",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "description",
+        "value": "",
+        "label": "Description",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "image",
+        "value": "",
+        "label": "Image",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "section",
+    "fields": [
+      {
+        "component": "multiselect",
+        "name": "style",
+        "value": "",
+        "label": "Style",
+        "valueType": "string",
+        "options": [
+          { "name": "Center", "value": "center" },
+          { "name": "Container", "value": "container" }
+        ]
+      },
+      {
+        "component": "select",
+        "name": "grid",
+        "value": "",
+        "label": "Grid",
+        "valueType": "string",
+        "options": [
+          { "name": "None", "value": "" },
+          { "name": "2 Columns", "value": "2" },
+          { "name": "3 Columns", "value": "3" },
+          { "name": "4 Columns", "value": "4" },
+          { "name": "5 Columns", "value": "5" },
+          { "name": "6 Columns", "value": "6" }
+        ]
+      },
+      {
+        "component": "select",
+        "name": "gap",
+        "value": "",
+        "label": "Gap",
+        "valueType": "string",
+        "options": [
+          { "name": "Default", "value": "" },
+          { "name": "Extra Small", "value": "xs" },
+          { "name": "Small", "value": "s" },
+          { "name": "Medium", "value": "m" },
+          { "name": "Large", "value": "l" },
+          { "name": "Extra Large", "value": "xl" },
+          { "name": "2X Large", "value": "xxl" }
+        ]
+      },
+      {
+        "component": "select",
+        "name": "spacing",
+        "value": "",
+        "label": "Spacing",
+        "valueType": "string",
+        "options": [
+          { "name": "Default", "value": "" },
+          { "name": "Extra Small", "value": "xs" },
+          { "name": "Small", "value": "s" },
+          { "name": "Medium", "value": "m" },
+          { "name": "Large", "value": "l" },
+          { "name": "Extra Large", "value": "xl" },
+          { "name": "2X Large", "value": "xxl" }
+        ]
+      },
+      {
+        "component": "select",
+        "name": "container",
+        "value": "",
+        "label": "Container",
+        "valueType": "string",
+        "options": [
+          { "name": "Default", "value": "" },
+          { "name": "2", "value": "2" },
+          { "name": "4", "value": "4" },
+          { "name": "6", "value": "6" }
+        ]
+      },
+      {
+        "component": "select",
+        "name": "layout",
+        "value": "",
+        "label": "Layout",
+        "valueType": "string",
+        "options": [
+          { "name": "Default", "value": "" },
+          { "name": "Bento", "value": "bento" }
+        ]
+      },
+      {
+        "component": "text",
+        "name": "background",
+        "value": "",
+        "label": "Background",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "hero",
+    "fields": [
+      {
+        "component": "multiselect",
+        "name": "classes",
+        "value": "",
+        "label": "Variants",
+        "valueType": "string",
+        "options": [
+          { "name": "Card", "value": "card" },
+          { "name": "Center", "value": "center" },
+          { "name": "Small", "value": "small" },
+          { "name": "Large", "value": "large" },
+          { "name": "Full", "value": "full" },
+          { "name": "Light", "value": "light" },
+          { "name": "Dark", "value": "dark" },
+          { "name": "Quiet Background", "value": "quiet-background" },
+          { "name": "Stack", "value": "stack" }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "card",
+    "fields": [
+      {
+        "component": "multiselect",
+        "name": "classes",
+        "value": "",
+        "label": "Variants",
+        "valueType": "string",
+        "options": [
+          { "name": "Center", "value": "center" },
+          { "name": "Quiet", "value": "quiet" },
+          { "name": "Hash Aware", "value": "hash-aware" }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "cards",
+    "fields": []
+  },
+  {
+    "id": "carousel",
+    "fields": [
+      {
+        "component": "multiselect",
+        "name": "classes",
+        "value": "",
+        "label": "Variants",
+        "valueType": "string",
+        "options": [
+          { "name": "Autoplay", "value": "autoplay" }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "columns",
+    "fields": [
+      {
+        "component": "multiselect",
+        "name": "classes",
+        "value": "",
+        "label": "Variants",
+        "valueType": "string",
+        "options": [
+          { "name": "Image Cover", "value": "image-cover" },
+          { "name": "Z Pattern", "value": "z-pattern" },
+          { "name": "Align Top", "value": "align-top" },
+          { "name": "Gap XS", "value": "gap-xs" },
+          { "name": "Gap S", "value": "gap-s" },
+          { "name": "Gap M", "value": "gap-m" },
+          { "name": "Gap L", "value": "gap-l" },
+          { "name": "Gap XL", "value": "gap-xl" },
+          { "name": "Gap XXL", "value": "gap-xxl" }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "cta-banner",
+    "fields": [
+      {
+        "component": "multiselect",
+        "name": "classes",
+        "value": "",
+        "label": "Variants",
+        "valueType": "string",
+        "options": [
+          { "name": "Dark", "value": "dark" }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "advanced-tabs",
+    "fields": []
+  },
+  {
+    "id": "table",
+    "fields": []
+  }
+]

@@ -1,0 +1,21 @@
+[
+  {
+    "id": "section",
+    "components": [
+      "hero",
+      "card",
+      "cards",
+      "carousel",
+      "columns",
+      "cta-banner",
+      "advanced-tabs",
+      "table"
+    ]
+  },
+  {
+    "id": "page",
+    "components": [
+      "section"
+    ]
+  }
+]
