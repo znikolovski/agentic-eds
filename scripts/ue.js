@@ -51,22 +51,30 @@ const setupObservers = () => {
               }
             }
             break;
-          case 'carousel':
-            if (removedElements.length === 1 && removedElements[0].attributes['data-aue-component']?.value === 'carousel-item') {
-              const resourceAttr = removedElements[0].getAttribute('data-aue-resource');
+          case 'carousel': {
+            // replaceChildren removes all rows in a single mutation,
+            // so iterate through all removed carousel-item nodes
+            const removedItems = [...removedElements].filter(
+              (node) => node.attributes?.['data-aue-component']?.value === 'carousel-item',
+            );
+            const slides = mutation.target.querySelectorAll('li.carousel-slide');
+            removedItems.forEach((removedItem) => {
+              const resourceAttr = removedItem.getAttribute('data-aue-resource');
               if (resourceAttr) {
                 const itemMatch = resourceAttr.match(/item-(\d+)/);
                 if (itemMatch && itemMatch[1]) {
                   const slideIndex = parseInt(itemMatch[1], 10);
-                  const slides = mutation.target.querySelectorAll('li.carousel-slide');
-                  const targetSlide = Array.from(slides).find((slide) => parseInt(slide.getAttribute('data-slide-index'), 10) === slideIndex);
+                  const targetSlide = Array.from(slides).find(
+                    (slide) => parseInt(slide.getAttribute('data-slide-index'), 10) === slideIndex,
+                  );
                   if (targetSlide) {
-                    moveInstrumentation(removedElements[0], targetSlide);
+                    moveInstrumentation(removedItem, targetSlide);
                   }
                 }
               }
-            }
+            });
             break;
+          }
           case 'card':
             // handle picture extraction from <p> into card-picture-container
             if (addedElements.length === 1 && addedElements[0].classList?.contains('card-picture-container')) {
