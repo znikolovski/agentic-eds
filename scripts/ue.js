@@ -14,7 +14,7 @@ import { showSlide } from '../blocks/carousel/carousel.js';
 import { moveInstrumentation } from './ue-utils.js';
 
 const setupObservers = () => {
-  const mutatingBlocks = document.querySelectorAll('div.cards, div.carousel, div.accordion');
+  const mutatingBlocks = document.querySelectorAll('div.cards, div.carousel, div.card, div.hero, div.cta-banner');
   const observer = new MutationObserver((mutations) => {
     mutations.forEach((mutation) => {
       if (mutation.type === 'childList' && mutation.target.tagName === 'DIV') {
@@ -51,12 +51,6 @@ const setupObservers = () => {
               }
             }
             break;
-          case 'accordion':
-            if (addedElements.length === 1 && addedElements[0].tagName === 'DETAILS') {
-              moveInstrumentation(removedElements[0], addedElements[0]);
-              moveInstrumentation(removedElements[0].querySelector('div'), addedElements[0].querySelector('summary'));
-            }
-            break;
           case 'carousel':
             if (removedElements.length === 1 && removedElements[0].attributes['data-aue-component']?.value === 'carousel-item') {
               const resourceAttr = removedElements[0].getAttribute('data-aue-resource');
@@ -70,6 +64,41 @@ const setupObservers = () => {
                     moveInstrumentation(removedElements[0], targetSlide);
                   }
                 }
+              }
+            }
+            break;
+          case 'card':
+            // handle picture extraction from <p> into card-picture-container
+            if (addedElements.length === 1 && addedElements[0].classList?.contains('card-picture-container')) {
+              const removedP = [...removedElements].find((node) => node.tagName === 'P');
+              if (removedP) {
+                const oldImg = removedP.querySelector('img');
+                const newImg = addedElements[0].querySelector('img');
+                if (oldImg && newImg) {
+                  moveInstrumentation(oldImg, newImg);
+                }
+              }
+            }
+            break;
+          case 'hero':
+            // handle card variant: content rows removed, foreground added
+            if (addedElements.length === 1 && addedElements[0].classList?.contains('hero-foreground')) {
+              const fg = addedElements[0];
+              const removedRows = [...removedElements].filter((node) => node.tagName === 'DIV');
+              const fgText = fg.querySelector('.fg-text');
+              if (fgText && removedRows.length > 0) {
+                // Transfer instrumentation from first content row to foreground text
+                moveInstrumentation(removedRows[0], fgText);
+              }
+            }
+            break;
+          case 'cta-banner':
+            // handle content rows removed, cta-banner-content wrapper added
+            if (addedElements.length === 1 && addedElements[0].classList?.contains('cta-banner-content')) {
+              const contentDiv = addedElements[0];
+              const removedRows = [...removedElements].filter((node) => node.tagName === 'DIV');
+              if (removedRows.length > 0) {
+                moveInstrumentation(removedRows[0], contentDiv);
               }
             }
             break;
@@ -112,29 +141,10 @@ const setupUEEventHandlers = () => {
         const index = element.getAttribute('data-slide-index');
 
         switch (block) {
-          case 'accordion':
-            blockEl.querySelectorAll('details').forEach((details) => {
-              details.open = false;
-            });
-            element.open = true;
-            break;
           case 'carousel':
             if (index) {
               showSlide(blockEl, index);
             }
-            break;
-          case 'tabs':
-            if (element === block) {
-              return;
-            }
-            blockEl.querySelectorAll('[role=tabpanel]').forEach((panel) => {
-              panel.setAttribute('aria-hidden', true);
-            });
-            element.setAttribute('aria-hidden', false);
-            blockEl.querySelector('.tabs-list').querySelectorAll('button').forEach((btn) => {
-              btn.setAttribute('aria-selected', false);
-            });
-            blockEl.querySelector(`[aria-controls=${element?.id}]`).setAttribute('aria-selected', true);
             break;
           default:
             break;

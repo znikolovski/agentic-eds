@@ -8,7 +8,9 @@ function getMediaFromColumn(col) {
   const picture = col.querySelector('picture');
   if (picture) {
     const img = picture.querySelector('img');
-    return img ? { type: 'image', el: picture, src: img.src, alt: img.alt || '' } : null;
+    return img ? {
+      type: 'image', el: picture, src: img.src, alt: img.alt || '',
+    } : null;
   }
 
   const video = col.querySelector('.video');
@@ -19,7 +21,11 @@ function getMediaFromColumn(col) {
     const href = link.getAttribute('href') || '';
     const isImage = /\.(jpg|jpeg|png|gif|webp)(\?|$)/i.test(href);
     const isYouTube = href.includes('youtube.com') || href.includes('youtu.be');
-    if (isImage) return { type: 'image', el: link, src: href, alt: link.textContent?.trim() || '' };
+    if (isImage) {
+      return {
+        type: 'image', el: link, src: href, alt: link.textContent?.trim() || '',
+      };
+    }
     if (isYouTube) return null; /* Already transformed to .video by youtube block */
   }
 
@@ -77,7 +83,7 @@ function updateActiveSlide(block, slideIndex) {
   });
 }
 
-function showSlide(block, slideIndex) {
+export function showSlide(block, slideIndex) {
   const slides = block.querySelectorAll('.carousel-slide');
   if (!slides.length) return;
 

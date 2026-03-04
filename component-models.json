@@ -5,23 +5,39 @@
       {
         "component": "text",
         "name": "title",
-        "value": "",
-        "label": "Title",
-        "valueType": "string"
+        "label": "Title"
       },
       {
         "component": "text",
         "name": "description",
-        "value": "",
-        "label": "Description",
-        "valueType": "string"
+        "label": "Description"
+      },
+      {
+        "component": "reference",
+        "name": "image",
+        "label": "Image"
       },
       {
         "component": "text",
+        "name": "robots",
+        "label": "Robots",
+        "description": "Index control via robots"
+      }
+    ]
+  },
+  {
+    "id": "image",
+    "fields": [
+      {
+        "component": "reference",
         "name": "image",
-        "value": "",
         "label": "Image",
-        "valueType": "string"
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "imageAlt",
+        "label": "Alt Text"
       }
     ]
   },
@@ -31,91 +47,11 @@
       {
         "component": "multiselect",
         "name": "style",
-        "value": "",
         "label": "Style",
-        "valueType": "string",
         "options": [
           { "name": "Center", "value": "center" },
           { "name": "Container", "value": "container" }
         ]
-      },
-      {
-        "component": "select",
-        "name": "grid",
-        "value": "",
-        "label": "Grid",
-        "valueType": "string",
-        "options": [
-          { "name": "None", "value": "" },
-          { "name": "2 Columns", "value": "2" },
-          { "name": "3 Columns", "value": "3" },
-          { "name": "4 Columns", "value": "4" },
-          { "name": "5 Columns", "value": "5" },
-          { "name": "6 Columns", "value": "6" }
-        ]
-      },
-      {
-        "component": "select",
-        "name": "gap",
-        "value": "",
-        "label": "Gap",
-        "valueType": "string",
-        "options": [
-          { "name": "Default", "value": "" },
-          { "name": "Extra Small", "value": "xs" },
-          { "name": "Small", "value": "s" },
-          { "name": "Medium", "value": "m" },
-          { "name": "Large", "value": "l" },
-          { "name": "Extra Large", "value": "xl" },
-          { "name": "2X Large", "value": "xxl" }
-        ]
-      },
-      {
-        "component": "select",
-        "name": "spacing",
-        "value": "",
-        "label": "Spacing",
-        "valueType": "string",
-        "options": [
-          { "name": "Default", "value": "" },
-          { "name": "Extra Small", "value": "xs" },
-          { "name": "Small", "value": "s" },
-          { "name": "Medium", "value": "m" },
-          { "name": "Large", "value": "l" },
-          { "name": "Extra Large", "value": "xl" },
-          { "name": "2X Large", "value": "xxl" }
-        ]
-      },
-      {
-        "component": "select",
-        "name": "container",
-        "value": "",
-        "label": "Container",
-        "valueType": "string",
-        "options": [
-          { "name": "Default", "value": "" },
-          { "name": "2", "value": "2" },
-          { "name": "4", "value": "4" },
-          { "name": "6", "value": "6" }
-        ]
-      },
-      {
-        "component": "select",
-        "name": "layout",
-        "value": "",
-        "label": "Layout",
-        "valueType": "string",
-        "options": [
-          { "name": "Default", "value": "" },
-          { "name": "Bento", "value": "bento" }
-        ]
-      },
-      {
-        "component": "text",
-        "name": "background",
-        "value": "",
-        "label": "Background",
-        "valueType": "string"
       }
     ]
   },
@@ -123,9 +59,29 @@
     "id": "hero",
     "fields": [
       {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "imageAlt",
+        "label": "Alt",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "name": "text",
+        "value": "",
+        "label": "Text",
+        "valueType": "string"
+      },
+      {
         "component": "multiselect",
         "name": "classes",
-        "value": "",
         "label": "Variants",
         "valueType": "string",
         "options": [
@@ -146,9 +102,28 @@
     "id": "card",
     "fields": [
       {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "imageAlt",
+        "label": "Image Alt"
+      },
+      {
+        "component": "richtext",
+        "name": "text",
+        "value": "",
+        "label": "Text",
+        "valueType": "string"
+      },
+      {
         "component": "multiselect",
         "name": "classes",
-        "value": "",
         "label": "Variants",
         "valueType": "string",
         "options": [
@@ -160,8 +135,29 @@
     ]
   },
   {
-    "id": "cards",
-    "fields": []
+    "id": "cards-item",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "imageAlt",
+        "label": "Image Alt"
+      },
+      {
+        "component": "richtext",
+        "name": "text",
+        "value": "",
+        "label": "Text",
+        "valueType": "string"
+      }
+    ]
   },
   {
     "id": "carousel",
@@ -169,7 +165,6 @@
       {
         "component": "multiselect",
         "name": "classes",
-        "value": "",
         "label": "Variants",
         "valueType": "string",
         "options": [
@@ -179,12 +174,46 @@
     ]
   },
   {
+    "id": "carousel-item",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "imageAlt",
+        "label": "Image Alt"
+      },
+      {
+        "component": "richtext",
+        "name": "text",
+        "label": "Text",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "columns",
     "fields": [
       {
+        "component": "number",
+        "valueType": "number",
+        "name": "columns",
+        "label": "Number of Columns",
+        "value": 2,
+        "validation": {
+          "numberMin": 1,
+          "numberMax": 6
+        }
+      },
+      {
         "component": "multiselect",
         "name": "classes",
-        "value": "",
         "label": "Variants",
         "valueType": "string",
         "options": [
@@ -205,9 +234,27 @@
     "id": "cta-banner",
     "fields": [
       {
+        "component": "reference",
+        "valueType": "string",
+        "name": "backgroundImage",
+        "label": "Background Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "backgroundImageAlt",
+        "label": "Background Image Alt"
+      },
+      {
+        "component": "richtext",
+        "name": "text",
+        "label": "Text",
+        "valueType": "string"
+      },
+      {
         "component": "multiselect",
         "name": "classes",
-        "value": "",
         "label": "Variants",
         "valueType": "string",
         "options": [
