@@ -1,6 +1,7 @@
-import { loadArea, setConfig } from './ak.js';
+// eslint-disable-next-line import/no-cycle
+import { loadArea, setConfig, getConfig } from './ak.js';
 
-const hostnames = ['authorkit.dev'];
+const hostnames = ['authorkit.dev', 'aem.page', 'aem.live', 'da.live'];
 
 const locales = {
   '': { lang: 'en' },
@@ -33,15 +34,19 @@ const decorateArea = ({ area = document }) => {
   eagerLoad(area, 'img');
 };
 
+// eslint-disable-next-line import/prefer-default-export
 export async function loadPage() {
-  setConfig({ hostnames, locales, linkBlocks, components, decorateArea });
+  setConfig({
+    hostnames, locales, linkBlocks, components, decorateArea,
+  });
   await loadArea();
 }
 await loadPage();
 
 if (/\.(stage-ue|ue)\.da\.live$/.test(window.location.hostname)) {
+  const { codeBase } = getConfig();
   // eslint-disable-next-line import/no-unresolved
-  await import(`${window.hlx.codeBasePath}/scripts/ue.js`).then(({ default: ue }) => ue());
+  await import(`${codeBase}/scripts/ue.js`).then(({ default: ue }) => ue());
 }
 
 (function da() {
