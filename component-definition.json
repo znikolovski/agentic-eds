@@ -251,11 +251,32 @@
           "title": "Advanced Tabs",
           "id": "advanced-tabs",
           "model": "advanced-tabs",
+          "filter": "advanced-tabs",
           "plugins": {
             "da": {
-              "name": "advanced-tabs",
-              "rows": 1,
-              "columns": 1
+              "columns": 1,
+              "rows": 2
+            }
+          }
+        },
+        {
+          "title": "Advanced Tabs Item",
+          "id": "advanced-tabs-item",
+          "model": "advanced-tabs-item",
+          "plugins": {
+            "da": {
+              "columns": 0,
+              "rows": 2,
+              "fields": [
+                {
+                  "name": "name",
+                  "selector": "div:nth-child(1)"
+                },
+                {
+                  "name": "content",
+                  "selector": "div:nth-child(2)"
+                }
+              ]
             }
           }
         },

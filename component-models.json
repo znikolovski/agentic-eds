@@ -231,6 +231,14 @@
     ]
   },
   {
+    "id": "columns-row",
+    "fields": []
+  },
+  {
+    "id": "columns-cell",
+    "fields": []
+  },
+  {
     "id": "cta-banner",
     "fields": [
       {
@@ -266,6 +274,23 @@
   {
     "id": "advanced-tabs",
     "fields": []
+  },
+  {
+    "id": "advanced-tabs-item",
+    "fields": [
+      {
+        "component": "text",
+        "name": "name",
+        "valueType": "string",
+        "label": "Tab Name"
+      },
+      {
+        "component": "richtext",
+        "name": "content",
+        "label": "Content",
+        "valueType": "string"
+      }
+    ]
   },
   {
     "id": "table",
