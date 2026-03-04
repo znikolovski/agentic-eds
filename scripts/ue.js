@@ -13,6 +13,18 @@
 import { showSlide } from '../blocks/carousel/carousel.js';
 import { moveInstrumentation } from './ue-utils.js';
 
+/**
+ * Construct a DA editor URL for a given content path.
+ * Derives org/site from the UE hostname (branch--site--org.ue.da.live).
+ */
+function getDaEditUrl(path) {
+  const { hostname } = window.location;
+  const match = hostname.match(/^[^-]+--([^-]+)--([^.]+)\./);
+  if (!match) return null;
+  const [, site, org] = match;
+  return `https://da.live/edit#/${org}/${site}${path}`;
+}
+
 const setupObservers = () => {
   const mutatingBlocks = document.querySelectorAll('div.cards, div.carousel, div.card, div.hero, div.cta-banner');
   const observer = new MutationObserver((mutations) => {
@@ -138,6 +150,9 @@ const setupUEEventHandlers = () => {
     const { detail } = event;
     const resource = detail?.resource;
 
+    // Remove any existing fragment edit overlay
+    document.querySelectorAll('.fragment-edit-overlay').forEach((el) => el.remove());
+
     if (resource) {
       const element = document.querySelector(`[data-aue-resource="${resource}"]`);
       if (!element) {
@@ -156,6 +171,29 @@ const setupUEEventHandlers = () => {
             break;
           default:
             break;
+        }
+      }
+
+      // Check if the selected element or its context has a fragment path
+      const fragmentEl = element.closest('[data-fragment-path]')
+        || element.querySelector('[data-fragment-path]');
+      if (fragmentEl) {
+        const { fragmentPath } = fragmentEl.dataset;
+        const editUrl = getDaEditUrl(fragmentPath);
+        if (editUrl) {
+          const overlay = document.createElement('div');
+          overlay.className = 'fragment-edit-overlay';
+          overlay.style.cssText = 'position:absolute;top:0;right:0;z-index:9999;padding:6px 12px;'
+            + 'background:#1473e6;color:#fff;border-radius:0 0 0 4px;font:600 13px/1.4 sans-serif;'
+            + 'cursor:pointer;display:flex;align-items:center;gap:6px;';
+          overlay.innerHTML = '<span>Edit Fragment</span><span style="font-size:16px">\u2197</span>';
+          overlay.addEventListener('pointerdown', (e) => {
+            e.stopImmediatePropagation();
+            e.preventDefault();
+            window.open(editUrl, '_blank');
+          });
+          fragmentEl.style.position = 'relative';
+          fragmentEl.prepend(overlay);
         }
       }
     }

@@ -75,18 +75,41 @@ function getReplaceEl(a) {
   return current;
 }
 
-export default async function init(a) {
-  const path = a.getAttribute('href');
+export default async function init(el) {
+  // Handle both auto-blocked anchor and DA-authored block div
+  const isBlock = el.tagName === 'DIV' && el.classList.contains('fragment');
+  const path = isBlock
+    ? el.querySelector('a')?.getAttribute('href')
+    : el.getAttribute('href');
+
+  if (!path) return;
+
   const fragment = await loadFragment(path);
-  if (fragment) {
-    const elToReplace = getReplaceEl(a);
+  if (!fragment) return;
+
+  if (isBlock) {
+    // DA-authored block: keep outer div for UE instrumentation, replace inner content
+    el.dataset.fragmentPath = path;
+    el.replaceChildren();
     const sections = fragment.querySelectorAll(':scope > .section');
     const children = sections.length === 1
-      ? fragment.querySelectorAll(':scope > *')
+      ? [...fragment.querySelectorAll(':scope > *')]
       : [fragment];
-    for (const child of children) {
+    children.forEach((child) => el.append(child));
+  } else {
+    // Auto-blocked anchor: replace link wrapper with fragment content
+    const elToReplace = getReplaceEl(el);
+    const sections = fragment.querySelectorAll(':scope > .section');
+    const children = sections.length === 1
+      ? [...fragment.querySelectorAll(':scope > *')]
+      : [fragment];
+    let firstInserted;
+    children.forEach((child) => {
       elToReplace.insertAdjacentElement('afterend', child);
-    }
+      if (!firstInserted) firstInserted = child;
+    });
     elToReplace.remove();
+    // Store fragment path on inserted content for UE deeplink
+    if (firstInserted) firstInserted.dataset.fragmentPath = path;
   }
 }

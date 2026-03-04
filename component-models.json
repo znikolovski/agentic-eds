@@ -293,6 +293,22 @@
     ]
   },
   {
+    "id": "fragment",
+    "fields": [
+      {
+        "component": "text",
+        "name": "urlText",
+        "label": "Fragment URL Text"
+      },
+      {
+        "component": "text",
+        "name": "url",
+        "label": "Fragment URL",
+        "required": true
+      }
+    ]
+  },
+  {
     "id": "table",
     "fields": []
   }
